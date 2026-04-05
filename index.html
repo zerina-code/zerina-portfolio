@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zerina Kulic — Portfolio</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a3a;
+      --accent: #7c6af7;
+      --accent2: #a78bfa;
+      --accent3: #38bdf8;
+      --text: #e8e8f0;
+      --muted: #8888a8;
+      --green: #34d399;
+      --pink: #f472b6;
+      --orange: #fb923c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(124,106,247,0.13) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-glow-2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 25%; right: 10%;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 820px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(124,106,247,0.4);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--accent2);
+      margin-bottom: 1.5rem;
+      background: rgba(124,106,247,0.05);
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .name-accent {
+      background: linear-gradient(135deg, var(--accent2) 0%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+      line-height: 1.75;
+    }
+
+    .hero-tagline strong { color: var(--text); }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent2); transform: translateY(-1px); }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      animation: fadeIn 1s 1s ease both;
+      opacity: 0;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--muted));
+      animation: scrollBounce 1.5s infinite;
+    }
+    @keyframes scrollBounce { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(0.6);opacity:0.4} }
+
+    /* SECTIONS */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--accent2);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .about-text p strong { color: var(--text); }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(124,106,247,0.04));
+      opacity: 0;
+      transition: opacity 0.25s;
+      pointer-events: none;
+    }
+    .project-card:hover { border-color: rgba(124,106,247,0.5); transform: translateY(-3px); }
+    .project-card:hover::after { opacity: 1; }
+
+    .project-card.featured {
+      grid-column: span 2;
+      border-color: rgba(124,106,247,0.2);
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(124,106,247,0.04) 100%);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .project-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .project-meta { flex: 1; }
+
+    .project-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    .project-category { font-size: 0.75rem; color: var(--muted); }
+
+    .project-links { display: flex; gap: 0.75rem; flex-shrink: 0; }
+
+    .project-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent2); }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .project-desc strong { color: var(--text); }
+
+    .project-highlights { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .project-highlights li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .project-highlights li::before { content: '→'; color: var(--accent2); flex-shrink: 0; }
+    .project-highlights li strong { color: var(--text); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      border: 1px solid;
+    }
+    .tag-purple { color: var(--accent2); border-color: rgba(167,139,250,0.25); background: rgba(167,139,250,0.08); }
+    .tag-blue   { color: var(--accent3); border-color: rgba(56,189,248,0.25);  background: rgba(56,189,248,0.08); }
+    .tag-green  { color: var(--green);   border-color: rgba(52,211,153,0.25);  background: rgba(52,211,153,0.08); }
+    .tag-pink   { color: var(--pink);    border-color: rgba(244,114,182,0.25); background: rgba(244,114,182,0.08); }
+    .tag-orange { color: var(--orange);  border-color: rgba(251,146,60,0.25);  background: rgba(251,146,60,0.08); }
+    .tag-gray   { color: var(--muted);   border-color: var(--border);          background: var(--surface2); }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--green);
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.25);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    .live-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .skill-group-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .skill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-pill {
+      padding: 0.3rem 0.7rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+
+    /* CONTACT */
+    .contact-section { text-align: center; }
+    .contact-section .section-label,
+    .contact-section h2,
+    .contact-section .section-desc {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    /* GitHub icon */
+    .gh-icon { width:16px;height:16px;fill:currentColor;vertical-align:middle; }
+
+    /* SVG arrow */
+    .arrow-icon { width:16px;height:16px;vertical-align:middle; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">ZK</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Open to AI / ML Internships
+      </div>
+      <h1>Hi, I'm <span class="name-accent">Zerina Kulić</span></h1>
+      <p class="hero-tagline">
+        A <strong>Computer Science student</strong> at SSST University fascinated by how AI systems
+        actually work — from <strong>vector embeddings</strong> and <strong>RAG pipelines</strong>
+        to BERT-based NLP and LLM-powered applications built end-to-end and shipped to production.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">
+          View Projects
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#contact" class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <h2>Turning curiosity into<br>working systems</h2>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          I'm a <strong>3rd-year Computer Science student with a minor in Electrical Engineering</strong>
+          at Sarajevo School of Science and Technology (SSST).
+        </p>
+        <p>
+          What draws me to AI isn't just the outcomes — it's the mechanics: how <strong>vector embeddings</strong>
+          compress meaning into geometry, how <strong>retrieval-augmented generation</strong> grounds language models
+          in real knowledge, and how classical ML algorithms can surface genuine insight from messy real-world data.
+        </p>
+        <p>
+          Across my projects I've integrated BERT, Llama 3.3, Claude, and Amazon Titan into
+          production-grade systems deployed on AWS, Vercel, and Google Cloud — always building the
+          full stack around the AI layer.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">AI / LLM Integrations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Cloud Platforms</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3rd</div>
+          <div class="stat-label">Year CS @ SSST</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <h2>Things I've built</h2>
+    <p class="section-desc">Full-stack apps, AI-powered tools, and data science — every project production-aware and deployable.</p>
+
+    <div class="projects-grid">
+
+      <!-- FEATURED: StudyAI -->
+      <div class="project-card featured reveal">
+        <div class="project-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="project-icon" style="background:rgba(124,106,247,0.12);">🧠</div>
+            <div class="project-meta">
+              <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.2rem;">
+                <div class="project-name">StudyAI</div>
+                <span class="live-badge"><span class="live-dot"></span>Live</span>
+              </div>
+              <div class="project-category">Full-Stack · RAG Pipeline · AWS · Production</div>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://mystudy.click" target="_blank" class="project-link">
+              <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M10 2h4m0 0v4m0-4L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              mystudy.click
+            </a>
+            <a href="https://github.com/zerina-code" target="_blank" class="project-link">
+              <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">
+          AI-powered study assistant where you upload documents (PDF, DOCX, images) and chat with an AI tutor
+          grounded in your own content. Features a fully <strong>serverless RAG pipeline on AWS</strong> —
+          S3 upload triggers SQS → Lambda, which chunks documents, generates <strong>vector embeddings via Amazon Titan Embed v2</strong>,
+          and stores them in <strong>pgvector</strong> for semantic retrieval. Automatically generates flashcard sets
+          and interactive mind maps. Supports real-time collaborative study groups.
+        </p>
+        <ul class="project-highlights">
+          <li><strong>RAG:</strong> S3 → SQS → Lambda → Bedrock (Titan embeddings) → pgvector cosine similarity search</li>
+          <li><strong>LLM:</strong> Claude Haiku (AWS Bedrock) for chat, flashcard generation, and mind map synthesis</li>
+          <li><strong>Infra:</strong> EC2 + Docker + Nginx + Let's Encrypt SSL, Google & GitHub OAuth, CI/CD-ready</li>
+        </ul>
+        <div class="tags">
+          <span class="tag tag-purple">RAG / pgvector</span>
+          <span class="tag tag-purple">AWS Bedrock</span>
+          <span class="tag tag-blue">FastAPI · Python 3.12</span>
+          <span class="tag tag-blue">React 19</span>
+          <span class="tag tag-green">Lambda / SQS / S3</span>
+          <span class="tag tag-green">PostgreSQL (RDS)</span>
+          <span class="tag tag-orange">Docker · Nginx</span>
+        </div>
+      </div>
+
+      <!-- VerifyAI -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="project-icon" style="background:rgba(244,114,182,0.1);">🔍</div>
+            <div class="project-meta">
+              <div class="project-name">VerifyAI</div>
+              <div class="project-category">NLP · BERT · HuggingFace · FastAPI</div>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/zerina-code" target="_blank" class="project-link">
+              <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Analyzes news articles for sensationalist and clickbait writing patterns using a
+          <strong>fine-tuned BERT model</strong> (HuggingFace Transformers + PyTorch). Paste text or
+          supply a URL — the backend fetches and parses the article, then scores it sentence-by-sentence,
+          producing an overall sensationalism score, a verdict, and a per-sentence breakdown
+          flagging the most emotionally charged language.
+        </p>
+        <div class="tags">
+          <span class="tag tag-pink">BERT / Transformers</span>
+          <span class="tag tag-pink">PyTorch</span>
+          <span class="tag tag-blue">FastAPI</span>
+          <span class="tag tag-gray">BeautifulSoup4</span>
+          <span class="tag tag-orange">Cloud Run</span>
+        </div>
+      </div>
+
+      <!-- Debater -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="project-icon" style="background:rgba(56,189,248,0.1);">⚔️</div>
+            <div class="project-meta">
+              <div class="project-name">Debater</div>
+              <div class="project-category">Next.js 14 · LLM Streaming · Real-Time</div>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/zerina-code" target="_blank" class="project-link">
+              <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Enter any topic and watch two AI personas argue FOR and AGAINST in real time.
+          Uses <strong>Edge Runtime streaming</strong> with <code>ReadableStream</code> for token-level
+          turn-based responses, Supabase Realtime for live vote bars, and two Llama models — one for
+          debate, one for topic validation. Every debate gets a permanent shareable URL and appears
+          on a live leaderboard.
+        </p>
+        <div class="tags">
+          <span class="tag tag-blue">Next.js 14 · TypeScript</span>
+          <span class="tag tag-purple">Llama 3.3 70b (Groq)</span>
+          <span class="tag tag-green">Supabase Realtime</span>
+          <span class="tag tag-gray">Upstash Redis</span>
+          <span class="tag tag-gray">Clerk Auth</span>
+          <span class="tag tag-gray">Tailwind CSS</span>
+        </div>
+      </div>
+
+      <!-- JobTrack -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="project-icon" style="background:rgba(52,211,153,0.1);">💼</div>
+            <div class="project-meta">
+              <div class="project-name">JobTrack</div>
+              <div class="project-category">Full-Stack · AI CV Analysis · Groq API</div>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/zerina-code" target="_blank" class="project-link">
+              <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Job application tracker with an AI-powered CV analyzer. Upload a CV (PDF or DOCX) alongside
+          a job description and <strong>Llama 3.3 70b via Groq</strong> returns a match score, identifies
+          skill gaps, and suggests concrete improvements. Includes full auth (email/password + Google OAuth),
+          and a dashboard with visual stats and charts.
+        </p>
+        <div class="tags">
+          <span class="tag tag-purple">Llama 3.3 (Groq)</span>
+          <span class="tag tag-blue">FastAPI · React</span>
+          <span class="tag tag-green">Google OAuth · JWT</span>
+          <span class="tag tag-gray">PyMuPDF · python-docx</span>
+          <span class="tag tag-gray">SQLite</span>
+        </div>
+      </div>
+
+      <!-- Student Dropout ML -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="project-icon" style="background:rgba(251,146,60,0.1);">📊</div>
+            <div class="project-meta">
+              <div class="project-name">Student Dropout Prediction</div>
+              <div class="project-category">Data Mining · Jupyter Notebook · scikit-learn</div>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/zerina-code" target="_blank" class="project-link">
+              <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">
+          End-to-end CRISP-DM classification project predicting student outcome (Dropout / Enrolled / Graduate)
+          on the <strong>UCI Student Academic Success dataset</strong> (4,424 records, 36 features).
+          Full pipeline: EDA with 20+ visualizations, feature engineering (12 new features),
+          <strong>SMOTE</strong> for class imbalance, and comparative evaluation of Decision Tree, kNN,
+          and Naïve Bayes classifiers with fairness/bias checks.
+        </p>
+        <ul class="project-highlights">
+          <li><strong>SMOTE</strong> applied to handle 32% / 50% / 18% class imbalance across three outcome classes</li>
+          <li>Feature importance analysis + demographic fairness checks</li>
+          <li>GridSearchCV hyperparameter tuning across all three classifiers</li>
+        </ul>
+        <div class="tags">
+          <span class="tag tag-orange">scikit-learn</span>
+          <span class="tag tag-orange">SMOTE</span>
+          <span class="tag tag-orange">pandas · NumPy</span>
+          <span class="tag tag-gray">Jupyter Notebook</span>
+          <span class="tag tag-gray">Seaborn · Matplotlib</span>
+        </div>
+      </div>
+
+      <!-- Javni Prevoz KS -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="project-icon" style="background:rgba(52,211,153,0.08);">🚌</div>
+            <div class="project-meta">
+              <div class="project-name">Javni Prevoz KS</div>
+              <div class="project-category">Full-Stack · Spatial DB · Leaflet.js</div>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/zerina-code" target="_blank" class="project-link">
+              <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Database-driven web app for Sarajevo's public transport system, built across three courses
+          (Database Systems, Cloud Computing, Web Development). Interactive <strong>Leaflet.js map</strong>
+          with spatial <strong>POINT/LINESTRING</strong> data for stops and routes, full passenger and admin
+          flows, DB-level triggers for automated announcements, and an admin dashboard with Chart.js analytics.
+        </p>
+        <div class="tags">
+          <span class="tag tag-green">MariaDB · Spatial Data</span>
+          <span class="tag tag-gray">PHP 8.2</span>
+          <span class="tag tag-gray">Leaflet.js</span>
+          <span class="tag tag-gray">Chart.js</span>
+          <span class="tag tag-gray">Vanilla JS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Skills</div>
+    <h2>What I work with</h2>
+    <p class="section-desc">Built across every layer of the stack — with a focus on AI/ML tooling and cloud infrastructure.</p>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <div class="skill-group-title">AI / ML</div>
+        <div class="skill-list">
+          <span class="skill-pill">RAG Pipelines</span>
+          <span class="skill-pill">Vector Embeddings</span>
+          <span class="skill-pill">LLM Integration</span>
+          <span class="skill-pill">HuggingFace Transformers</span>
+          <span class="skill-pill">BERT</span>
+          <span class="skill-pill">scikit-learn</span>
+          <span class="skill-pill">SMOTE</span>
+          <span class="skill-pill">PyTorch</span>
+          <span class="skill-pill">pandas / NumPy</span>
+          <span class="skill-pill">Seaborn / Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Backend</div>
+        <div class="skill-list">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">FastAPI</span>
+          <span class="skill-pill">SQLAlchemy</span>
+          <span class="skill-pill">PostgreSQL + pgvector</span>
+          <span class="skill-pill">JWT / OAuth 2.0</span>
+          <span class="skill-pill">PHP 8.2</span>
+          <span class="skill-pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Frontend</div>
+        <div class="skill-list">
+          <span class="skill-pill">React 19</span>
+          <span class="skill-pill">Next.js 14</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">Tailwind CSS</span>
+          <span class="skill-pill">Vite</span>
+          <span class="skill-pill">Vanilla JS / HTML / CSS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud & Infra</div>
+        <div class="skill-list">
+          <span class="skill-pill">AWS EC2 / S3 / Lambda</span>
+          <span class="skill-pill">AWS SQS / Bedrock / RDS</span>
+          <span class="skill-pill">Docker / Compose</span>
+          <span class="skill-pill">Nginx</span>
+          <span class="skill-pill">Vercel</span>
+          <span class="skill-pill">Google Cloud Run</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="section-label">Contact</div>
+    <h2>Let's talk</h2>
+    <p class="section-desc">
+      I'm actively looking for AI/ML internships. If you're building something interesting, I'd love to hear about it.
+    </p>
+    <div class="contact-links reveal">
+      <a href="mailto:zerina.kulic@ssst.edu.ba" class="contact-card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        zerina.kulic@ssst.edu.ba
+      </a>
+      <a href="https://github.com/zerina-code" target="_blank" class="contact-card">
+        <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8c0 3.09 2.01 5.72 4.79 6.65.35.06.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.93.72a6.7 6.7 0 011.76-.24c.6 0 1.2.08 1.76.24 1.34-.91 1.93-.72 1.93-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.46.25.22.47.65.47 1.31v1.94c0 .19.13.4.48.34C12.99 13.72 15 11.09 15 8c0-3.87-3.13-7-7-7z"/></svg>
+        github.com/zerina-code
+      </a>
+      <a href="https://linkedin.com/in/zerina-kulic" target="_blank" class="contact-card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Zerina Kulić · 2026</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
