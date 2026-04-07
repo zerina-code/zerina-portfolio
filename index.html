@@ -564,6 +564,88 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* BLOOMTEQ */
+    .bloomteq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .bloomteq-main-img {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .bloomteq-main-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .bloomteq-main-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(to top, rgba(10,10,15,0.85), transparent);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .bloomteq-content { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .bloomteq-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid rgba(56,189,248,0.35);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent3);
+      background: rgba(56,189,248,0.06);
+      width: fit-content;
+    }
+
+    .bloomteq-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .bloomteq-title span {
+      background: linear-gradient(135deg, var(--accent3), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bloomteq-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.8; }
+    .bloomteq-desc strong { color: var(--text); }
+
+    .bloomteq-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .bloomteq-gallery img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      transition: transform 0.2s;
+    }
+    .bloomteq-gallery img:hover { transform: scale(1.02); }
+
+    @media (max-width: 900px) {
+      .bloomteq-grid { grid-template-columns: 1fr; }
+      .bloomteq-gallery { grid-template-columns: 1fr 1fr; }
+    }
+
     /* HACKATHON */
     .hackathon-card {
       display: grid;
@@ -619,6 +701,7 @@
   <nav>
     <span class="nav-logo">ZK</span>
     <ul class="nav-links">
+      <li><a href="#bloomteq">Bloomteq</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -654,6 +737,55 @@
       <div class="scroll-line"></div>
     </div>
   </div>
+
+  <div class="divider"></div>
+
+  <!-- BLOOMTEQ -->
+  <section id="bloomteq">
+    <div class="section-label">Vocational Training</div>
+    <div class="bloomteq-grid reveal">
+      <div class="bloomteq-main-img">
+        <img src="bloomteq-1.jpg" alt="Team photo at Bloomteq office" />
+        <div class="bloomteq-main-caption">Team photo at Bloomteq — April 6, 2026</div>
+      </div>
+      <div class="bloomteq-content">
+        <div class="bloomteq-badge">
+          November 2025 – March 2026
+        </div>
+        <div class="bloomteq-title">
+          AI &amp; Cloud Training at <span>Bloomteq</span>
+        </div>
+        <p class="bloomteq-desc">
+          From November 2025 to March 2026, I attended a structured vocational training program at
+          <strong>Bloomteq</strong> focused on <strong>AI and AWS Cloud Computing</strong> — deepening
+          my understanding of vector embeddings, RAG architectures, serverless pipelines, and
+          production-grade cloud infrastructure.
+        </p>
+        <p class="bloomteq-desc">
+          Over the course of a month, our team collaborated to design and build
+          <strong>AI Study Assistant</strong> — a full-stack AI-powered application using AWS services
+          including Bedrock, Lambda, S3, SQS, RDS, and EC2. On <strong>April 6, 2026</strong>, we
+          presented the finished product at Bloomteq's office in front of mentors and the wider team.
+        </p>
+        <p class="bloomteq-desc">
+          This experience genuinely transformed how I think about AI systems in production. I am deeply
+          grateful for the opportunity — it pushed my technical skills further than any coursework could,
+          and gave me hands-on confidence with the tools that matter most in today's AI landscape.
+        </p>
+        <div class="tags" style="margin-top:0.25rem;">
+          <span class="tag tag-blue">AWS Bedrock</span>
+          <span class="tag tag-blue">Lambda · S3 · SQS</span>
+          <span class="tag tag-purple">RAG Pipelines</span>
+          <span class="tag tag-green">EC2 · RDS</span>
+          <span class="tag tag-gray">Team Project</span>
+        </div>
+        <div class="bloomteq-gallery">
+          <img src="bloomteq-2.jpg" alt="Presenting AI Study Assistant at Bloomteq" />
+          <img src="bloomteq-3.jpg" alt="AWS Lambda slide during the presentation" />
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="divider"></div>
 
